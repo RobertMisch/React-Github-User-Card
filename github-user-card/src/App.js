@@ -7,17 +7,18 @@ class App extends React.Component{
   constructor(){
     super()
     this.state={
-      user:{},
-      followers:[]
+      user:'RobertMisch',
+      userData:{},
+      followers:[],
     }
   }
   //componentDidMount is where we do our axios call and gather data
   componentDidMount(){
     console.log('mounted')
-    axios.get(`https://api.github.com/users/RobertMisch`)
+    axios.get(`https://api.github.com/users/${this.state.user}`)
       .then(response => {
         console.log(response.data)
-        this.setState({user:response.data})
+        this.setState({userData:response.data})
 
         axios.get(`https://api.github.com/users/RobertMisch/followers`)
           .then(response => {
@@ -46,7 +47,7 @@ class App extends React.Component{
     return(
       <div>
         <UserCard 
-        user={this.state.user}
+        user={this.state.userData}
         // followers={this.state.followers}
         />
         <div>
